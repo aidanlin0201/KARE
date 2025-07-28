@@ -1,7 +1,6 @@
-
 const SHEET_ID = "19DPtEHwT6A34jnN9Og95H9uLJtDlm7R6AR99VIzJcOE";
 const API_KEY = "AIzaSyBmw7V8F7DNAGC9MlxkKHl6tkaGFFWNTvQ"; 
-const RANGE = "工作表1!A1:Z1000"; 
+const RANGE = "工作表1!A1:Z1000"; // 調整為你的欄位範圍
 
 const oilList = document.getElementById("oil-list");
 const blendList = document.getElementById("blend-list");
@@ -78,9 +77,9 @@ function calcTotal() {
   blendTotal.innerText = total.toFixed(2);
 }
 
-// 保存到 Google Sheets（後續會做 Webhook）
+// 保存到 Google Sheets（需開啟 Apps Script Webhook）
 document.getElementById("save-btn").addEventListener("click", () => {
-  alert("保存功能即將開啟：需要設定 Webhook");
+  alert("此功能需設定 Google Sheets 寫入 API 或 Webhook，後續幫你串接");
 });
 
 fetchData();
