@@ -80,28 +80,42 @@ function calcTotal() {
 // 保存到 Google Sheets（需開啟 Apps Script Webhook）
 const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbySIKGUjGxw24EDz_Cs7TNpZJK0RBnAoOgTYHDlyoPrSVTfkGduuOQxKv9sgovetzph/exec";
 
-document.getElementById("save-btn").addEventListener("click", async () => {
-  const keywords = document.getElementById("search").value;
-  const checkboxes = document.querySelectorAll(".blend-checkbox:checked");
-  const inputs = document.getElementsByClassName("blend-input");
-  const total = parseFloat(document.getElementById("blend-total").innerText) || 0;
-  let oils = [];
-  for (let i = 0; i < checkboxes.length; i++) {
-    oils.push(`${checkboxes[i].dataset.name} ${inputs[i].value}ml`);
-  }
+document.addEventListener("DOMContentLoaded", () => {
+  const saveBtn = document.getElementById("save-btn");
+  saveBtn.addEventListener("click", async () => {
+    const keywords = document.getElementById("search").value;
+    const checkboxes = document.querySelectorAll(".blend-checkbox:checked");
+    const inputs = document.getElementsByClassName("blend-input");
+    const total = parseFloat(document.getElementById("blend-total").innerText) || 0;
+    let oils = [];
+    for (let i = 0; i < checkboxes.length; i++) {
+      oils.push(`${checkboxes[i].dataset.name} ${inputs[i].value}ml`);
+    }
 
-  const payload = { keywords, oils: oils.join("，"), total };
-  const res = await fetch(WEBHOOK_URL, {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: { "Content-Type": "application/json" }
+    if (!keywords || oils.length === 0) {
+      alert("請輸入症狀並選擇精油");
+      return;
+    }
+
+    const payload = { keywords, oils: oils.join("，"), total };
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" }
+      });
+      const result = await res.json();
+      if (result.status === "success") {
+        alert("已保存到 Google Sheets");
+      } else {
+        alert("保存失敗");
+      }
+    } catch (e) {
+      alert("請檢查 Apps Script 是否正確部署並允許匿名訪問");
+      console.error(e);
+    }
   });
-  const result = await res.json();
-  if (result.status === "success") {
-    alert("已保存到 Google Sheets");
-  } else {
-    alert("保存失敗");
-  }
 });
+
 
 fetchData();
