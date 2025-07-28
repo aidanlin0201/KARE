@@ -78,8 +78,30 @@ function calcTotal() {
 }
 
 // 保存到 Google Sheets（需開啟 Apps Script Webhook）
-document.getElementById("save-btn").addEventListener("click", () => {
-  alert("此功能需設定 Google Sheets 寫入 API 或 Webhook，後續幫你串接");
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbySIKGUjGxw24EDz_Cs7TNpZJK0RBnAoOgTYHDlyoPrSVTfkGduuOQxKv9sgovetzph/exec";
+
+document.getElementById("save-btn").addEventListener("click", async () => {
+  const keywords = document.getElementById("search").value;
+  const checkboxes = document.querySelectorAll(".blend-checkbox:checked");
+  const inputs = document.getElementsByClassName("blend-input");
+  const total = parseFloat(document.getElementById("blend-total").innerText) || 0;
+  let oils = [];
+  for (let i = 0; i < checkboxes.length; i++) {
+    oils.push(`${checkboxes[i].dataset.name} ${inputs[i].value}ml`);
+  }
+
+  const payload = { keywords, oils: oils.join("，"), total };
+  const res = await fetch(WEBHOOK_URL, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: { "Content-Type": "application/json" }
+  });
+  const result = await res.json();
+  if (result.status === "success") {
+    alert("已保存到 Google Sheets");
+  } else {
+    alert("保存失敗");
+  }
 });
 
 fetchData();
