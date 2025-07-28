@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K.A.R.E. 精油資料庫</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h2>K.A.R.E. 精油資料庫</h2>
+  <input type="text" id="search" placeholder="輸入多個關鍵字（以逗號分隔，例如：失眠,焦慮）">
+  <div id="oil-list"></div>
+
+  <div class="blend-section">
+    <div class="blend-title">調配清單</div>
+    <div id="blend-list" class="blend-list"></div>
+    <p><b>總用量：</b><span id="blend-total">0</span> ml</p>
+    <button id="save-btn">保存到 Google Sheets</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
