@@ -1,6 +1,6 @@
 const SHEET_ID = "19DPtEHwT6A34jnN9Og95H9uLJtDlm7R6AR99VIzJcOE";
 const API_KEY = "AIzaSyBmw7V8F7DNAGC9MlxkKHl6tkaGFFWNTvQ"; 
-const RANGE = "工作表1!A1:Z1000"; // 調整為你的欄位範圍
+const RANGE = "精油資料庫!A1:Z1000"; // 調整為你的欄位範圍
 
 const oilList = document.getElementById("oil-list");
 const blendList = document.getElementById("blend-list");
