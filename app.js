@@ -78,7 +78,7 @@ function calcTotal() {
 }
 
 // 保存到 Google Sheets（需開啟 Apps Script Webhook）
-const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbySIKGUjGxw24EDz_Cs7TNpZJK0RBnAoOgTYHDlyoPrSVTfkGduuOQxKv9sgovetzph/exec";
+const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw41A9gv1gqevoXhBlgwovkgdzIdXQ_NYP2_xWTxUZkdKIAnec6lqlTF5WdkRgl6ij6/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.getElementById("save-btn");
